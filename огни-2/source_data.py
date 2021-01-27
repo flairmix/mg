@@ -43,9 +43,9 @@ Q_boilers = [1.273, 1.114, 1.114]
 # Запрашиваемое топливо: природный газ по ГОСТ Р 5542-87 (8000 ккал/м3)
 
 # Объем помещения 
-wall_0 = 7.4                       #TODO
-wall_1 = 10.9                       #TODO
-height = 3.0                        #TODO
+wall_0 = 6.25                       #TODO
+wall_1 = 9.75                      #TODO
+height = 3.5                        #TODO
 
 #temperature inside 
 t_in = 5
