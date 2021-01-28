@@ -2,7 +2,7 @@ import source_data
 import calc
 import gas_in
 
-type_of_boiler_room = "ahss_heigth"
+
 
 
 print("heat_power, Gcal / h - ", source_data.heat_power)
@@ -31,9 +31,9 @@ print("Габариты помещения")
 print("длина_0, м - ", source_data.wall_0, "; длина_1, м - ", source_data.wall_1, "; высота, м - ", source_data.height)
 print("объем здания, м3 - ", V_boiler_room)
 
-if type_of_boiler_room == "ahss_heigth":
+if source_data.BOILER_ROOM_TYPE.name == "Sp_253":
     S_glass = gas_in.coef_BRP_ahss_heigth * V_boiler_room
-elif type_of_boiler_room == "ahss":
+elif source_data.BOILER_ROOM_TYPE.name == "Sp_373":
     S_glass = gas_in.coef_BRP_ahss * V_boiler_room
 else:
     S_glass = gas_in.coef_BRP_br * V_boiler_room

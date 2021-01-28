@@ -1,4 +1,5 @@
 import source_data
+import gas_in
 
 if __name__ == "__main__":    
 
@@ -21,9 +22,9 @@ if __name__ == "__main__":
     print("расход воздуха на 3-х кр воздухообмен, м3ч - ", Gv_3)
 
     # расход воздуха на горение 
-    print(source_data.gas_consution(source_data.Q_boilers))
+    print(gas_in.gas_consution(source_data.Q_boilers))
 
-    G_air_for_fire = source_data.gas_consution(source_data.Q_boilers) * 1.2 * ((1.13 * source_data.heating_value) / 1000)
+    G_air_for_fire = gas_in.gas_consution(source_data.Q_boilers) * 1.2 * ((1.13 * source_data.heating_value) / 1000)
     print("расход воздуха на горение, м3ч - ", G_air_for_fire)
 
     # #расход воздуха всего 

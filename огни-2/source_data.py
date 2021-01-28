@@ -1,16 +1,27 @@
 
+from enum import Enum, auto
+
 #Исходные данные ЖК Огни-2 
-# Общая тепловая мощность Gcal/h
-Qsum_twice = 7.004 
+
+#тип котельной по нормативной документации 
+class BOILER_ROOM_TYPE(Enum):
+    Sp_89 = 'Sp_89'
+    Sp_373 = 'Sp_373'
+    Sp_253 = 'Sp_253'
+
+BOILER_ROOM_TYPE = BOILER_ROOM_TYPE.Sp_253
 
 #Gcal / h
-heat_power = 3.848
-vent_power = 1.079
-hot_water_power_mid = 1.302
-hot_water_power_max = 1.907
-POWER_sum = heat_power + vent_power + hot_water_power_max
-POWER_one = POWER_sum / 2
+heat_power = 3.908
+vent_power = 0.886
+hot_water_power_mid = 1.12
+hot_water_power_max = 1.64
 
+# Общая тепловая мощность Gcal/h
+POWER_sum = heat_power + vent_power + hot_water_power_max
+
+#Мощность одного 
+POWER_one = POWER_sum / 2
 
 Q_heat_loss = 8.0                #TODO
 # temp_t3 = 65
@@ -64,17 +75,5 @@ n_defl = 1 #count of deflectors
 efficiency_boiler = 0.92
 heating_value = 8000 
 
-def gas_consution(list:Q_boilers, efficiency_boiler=0.92, heating_value=8000):
 
-    #расчет расхода природного газа  
-    G_gas = [i for i in range (0, len(Q_boilers))]
-    for boiler in Q_boilers:
-        G_gas.append(round(10 **6 * boiler / heating_value / efficiency_boiler, 3)) 
-        # print("расход газа котел,", boiler,"  м3/ч - ", G_gas[-1])
 
-    G_gas_sum = sum(i for i in G_gas)
-    # print("расход газа сумма, м3/ч - ", G_gas_sum)
-
-    return(G_gas_sum)
-
-print(gas_consution(Q_boilers))
