@@ -5,7 +5,7 @@ import calc
 
 PRESSURE_ATMOSPHERE_BAR = 1.01325
 TEMPERATURE_ATMOSPHERE = 273.15
-GAS_TEMPERATURE = 298.15
+gas_temperature = 298.15
 
 class GAS_VELOCITY(Enum):
     GAS_VELOCITY_LOW_PRESSURE = 7
@@ -29,6 +29,7 @@ class GAS_PRESSURE_CLASS(Enum):
 
 # print(GAS_PRESSURE_CLASS.GAS_LOW_PRESSURE.value[0])
 # print(GAS_PRESSURE_CLASS.GAS_MID_PRESSURE)
+
 
 class Gas_system():
     def __init__(self):
@@ -85,12 +86,12 @@ class Gas_subsystem(Gas_system):
         
     def gas_consumption_work(self, gas_consumption_norm):
         
-        coef = (GAS_TEMPERATURE * (PRESSURE_ATMOSPHERE_BAR)) / ((TEMPERATURE_ATMOSPHERE+20) * (self.gas_pressure_bar+(PRESSURE_ATMOSPHERE_BAR)))
+        coef = (gas_temperature * (PRESSURE_ATMOSPHERE_BAR)) / ((TEMPERATURE_ATMOSPHERE+20) * (self.gas_pressure_bar+(PRESSURE_ATMOSPHERE_BAR)))
         return gas_consumption_norm * coef
 
 
     def gas_velocity(self, gas_consumption_norm, dn_gas_pipe):
-        gas_velocity = 0.1247 * (gas_consumption_norm * 1 * GAS_TEMPERATURE) / ((dn_gas_pipe ** 2) * ((PRESSURE_ATMOSPHERE_BAR + self.gas_pressure_bar)/10))
+        gas_velocity = 0.1247 * (gas_consumption_norm * 1 * gas_temperature) / ((dn_gas_pipe ** 2) * ((PRESSURE_ATMOSPHERE_BAR + self.gas_pressure_bar)/10))
         return gas_velocity
 
 
