@@ -75,5 +75,5 @@ n_defl = 1 #count of deflectors
 efficiency_boiler = 0.92
 heating_value = 8000 
 
-
+gas_temperature = 298.15
 

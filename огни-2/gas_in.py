@@ -5,7 +5,7 @@ import calc
 
 PRESSURE_ATMOSPHERE_BAR = 1.01325
 TEMPERATURE_ATMOSPHERE = 273.15
-gas_temperature = 298.15
+
 
 class GAS_VELOCITY(Enum):
     GAS_VELOCITY_LOW_PRESSURE = 7
@@ -25,10 +25,6 @@ class GAS_PRESSURE_CLASS(Enum):
     GAS_MID_PRESSURE = [0.05, 3.0]
     GAS_HIGH_2_PRESSURE = [3.0, 6.0]
     GAS_HIGH_1_PRESSURE = [6.0, 12.0]
-
-
-# print(GAS_PRESSURE_CLASS.GAS_LOW_PRESSURE.value[0])
-# print(GAS_PRESSURE_CLASS.GAS_MID_PRESSURE)
 
 
 class Gas_system():
@@ -64,7 +60,6 @@ class Gas_system():
         return (gas_consumption_norm * PRESSURE_ATMOSPHERE_BAR) / (gas_work_pressure + PRESSURE_ATMOSPHERE_BAR)
    
 
-
 class Gas_subsystem(Gas_system):
     def __init__(self, gas_pressure_bar):
         super().__init__()
@@ -75,28 +70,32 @@ class Gas_subsystem(Gas_system):
             if (self.gas_pressure_bar > member.value[0] and self.gas_pressure_bar <= member.value[1]):
                 # print(name, member.value)
                 self.gas_pressure_class = member
-            
-            if member.name == "GAS_LOW_PRESSURE":
-                 self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_LOW_PRESSURE.value
-            elif member.name == "GAS_MID_PRESSURE":
-                 self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_MID_PRESSURE.value
-            else:
-                 self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_HIGH_1_PRESSURE.value
+                break
+
+        if (member.name == "GAS_LOW_PRESSURE"):
+                self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_LOW_PRESSURE.value
+        elif(member.name == "GAS_MID_PRESSURE"):
+                self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_MID_PRESSURE.value
+        else:
+                self.velocity_max = GAS_VELOCITY.GAS_VELOCITY_HIGH_1_PRESSURE.value
         
         
     def gas_consumption_work(self, gas_consumption_norm):
         
-        coef = (gas_temperature * (PRESSURE_ATMOSPHERE_BAR)) / ((TEMPERATURE_ATMOSPHERE+20) * (self.gas_pressure_bar+(PRESSURE_ATMOSPHERE_BAR)))
+        coef = (source_data.gas_temperature * (PRESSURE_ATMOSPHERE_BAR)) / ((TEMPERATURE_ATMOSPHERE+20) * (self.gas_pressure_bar+(PRESSURE_ATMOSPHERE_BAR)))
         return gas_consumption_norm * coef
 
 
     def gas_velocity(self, gas_consumption_norm, dn_gas_pipe):
-        gas_velocity = 0.1247 * (gas_consumption_norm * 1 * gas_temperature) / ((dn_gas_pipe ** 2) * ((PRESSURE_ATMOSPHERE_BAR + self.gas_pressure_bar)/10))
+        gas_velocity = 0.1247 * (gas_consumption_norm * 1 * source_data.gas_temperature) / ((dn_gas_pipe ** 2) * ((PRESSURE_ATMOSPHERE_BAR + self.gas_pressure_bar)/10))
         return gas_velocity
 
 
-    def gas_dn_pipe(self, gas_consumption_work):       #TODO
-        pass
+    def gas_dn_pipe(self, gas_consumption_norm):      
+        for dn in [32, 40, 50, 65, 80, 100, 125, 150, 200, 250, 300, 325, 350]:
+            if (self.gas_velocity(gas_consumption_norm, dn) <= self.velocity_max):
+                return dn
+
 
 
 
@@ -110,7 +109,8 @@ gas_1_1_cons = gas_1_1.gas_consumption_norm(source_data.Q_boilers)
 print("расход газа м3/ч нормальный ", gas_1_1_cons)
 gas_1_1_cons_work = gas_1_1.gas_consumption_work(gas_1_1_cons)
 print("расход газа м3/ч рабочий", gas_1_1_cons_work)
-print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, 200))
+print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
+print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
 
 
 
