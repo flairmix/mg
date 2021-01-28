@@ -31,12 +31,12 @@ print("Габариты помещения")
 print("длина_0, м - ", source_data.wall_0, "; длина_1, м - ", source_data.wall_1, "; высота, м - ", source_data.height)
 print("объем здания, м3 - ", V_boiler_room)
 
-if source_data.BOILER_ROOM_TYPE.name == "Sp_253":
-    S_glass = gas_in.coef_BRP_ahss_heigth * V_boiler_room
-elif source_data.BOILER_ROOM_TYPE.name == "Sp_373":
-    S_glass = gas_in.coef_BRP_ahss * V_boiler_room
+if source_data.BOILER_ROOM_TYPE.name == "SP_253":
+    S_glass = gas_in.GAS_DROP_CONSTRUCT_COEF.SP_253.value * V_boiler_room
+elif source_data.BOILER_ROOM_TYPE.name == "SP_373":
+    S_glass = gas_in.GAS_DROP_CONSTRUCT_COEF.SP_373.value * V_boiler_room
 else:
-    S_glass = gas_in.coef_BRP_br * V_boiler_room
+    S_glass = gas_in.GAS_DROP_CONSTRUCT_COEF.SP_89.value * V_boiler_room
 
 print("площадь легксосбрасываемых конструкций, м2 - ", S_glass)
 print("---------------------------------------------")
@@ -53,3 +53,5 @@ for boiler in source_data.Q_boilers:
     print("для котла мощностью ", boiler," расход т/ч - ", G_boiler ,", dn - ", dn_boiler)
     print("скорость в тр-де dn_boiler_0, м/с - ", round(calc.pipev(G_boiler, dn_boiler), 3))
     i += 1 
+
+

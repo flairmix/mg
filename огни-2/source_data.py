@@ -5,11 +5,11 @@ from enum import Enum, auto
 
 #тип котельной по нормативной документации 
 class BOILER_ROOM_TYPE(Enum):
-    Sp_89 = 'Sp_89'
-    Sp_373 = 'Sp_373'
-    Sp_253 = 'Sp_253'
+    SP_89 = 'SP_89'
+    SP_373 = 'SP_373'
+    SP_253 = 'SP_253'
 
-BOILER_ROOM_TYPE = BOILER_ROOM_TYPE.Sp_253
+BOILER_ROOM_TYPE = BOILER_ROOM_TYPE.SP_253
 
 #Gcal / h
 heat_power = 3.908
