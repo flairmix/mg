@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from math import sqrt
 
 import source_data
 import calc
@@ -96,24 +97,12 @@ class Gas_subsystem(Gas_system):
             if (self.gas_velocity(gas_consumption_norm, dn) <= self.velocity_max):
                 return dn
 
-
-
-
-
-
-gas_1_1 = Gas_subsystem(0.05)
-
-print(gas_1_1.gas_pressure_class)
-gas_1_1_cons = gas_1_1.gas_consumption_norm(source_data.Q_boilers)
-
-print("расход газа м3/ч нормальный ", gas_1_1_cons)
-gas_1_1_cons_work = gas_1_1.gas_consumption_work(gas_1_1_cons)
-print("расход газа м3/ч рабочий", gas_1_1_cons_work)
-print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
-print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
-
-
-
+    def gas_collector_dn(self, gas_consumption, length):
+        gas_volume = gas_consumption / 500
+        # S = Пи х (D / 2)² х h
+        # V = calc.pi * ((Dn **2) / 4) * length
+        Dn = sqrt((4 * gas_volume) / (calc.pi * length))
+        return Dn
 
 
 def gas_consution(list:source_data.Q_boilers, efficiency_boiler=0.92, heating_value=8000):
@@ -139,3 +128,28 @@ def gas_consution_one(Q_boiler, efficiency_boiler=0.92, heating_value=8000):
     Q_boiler - Gcal/h - boiler power 
     """
     return round(10 **6 * Q_boiler / heating_value / efficiency_boiler, 3)
+
+
+
+if __name__ == '__main__':
+
+    gas_1_1 = Gas_subsystem(0.05)
+
+    print(gas_1_1.gas_pressure_class)
+    gas_1_1_cons = gas_1_1.gas_consumption_norm(source_data.Q_boilers)
+
+    print("расход газа м3/ч нормальный ", gas_1_1_cons)
+    gas_1_1_cons_work = gas_1_1.gas_consumption_work(gas_1_1_cons)
+    print("расход газа м3/ч рабочий", gas_1_1_cons_work)
+    print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
+    print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
+
+    length = 7.4
+    print("Dn_collector ", round(gas_1_1.gas_collector_dn(gas_1_1_cons_work, length), 5), "при длине в м. - ", length)
+
+
+
+
+
+
+
