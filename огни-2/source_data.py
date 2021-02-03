@@ -17,8 +17,10 @@ vent_power = 0.886
 hot_water_power_mid = 1.12
 hot_water_power_max = 1.64
 
+power_boiler_room = 0.01 * (3.525)
+
 # Общая тепловая мощность Gcal/h
-POWER_sum = heat_power + vent_power + hot_water_power_max
+POWER_sum = heat_power + vent_power + hot_water_power_max + power_boiler_room
 
 #Мощность одного 
 POWER_one = POWER_sum / 2
@@ -49,7 +51,7 @@ temp_T1_summer_out = 90
 temp_T2_summer_out = 70
 
 #Мощность котлов - Gcal / h
-Q_boilers = [1.273, 1.114, 1.114]
+Q_boilers = [1.273431, 1.114359, 1.114359]
 
 # Запрашиваемое топливо: природный газ по ГОСТ Р 5542-87 (8000 ккал/м3)
 

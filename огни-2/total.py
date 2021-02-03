@@ -55,3 +55,17 @@ for boiler in source_data.Q_boilers:
     i += 1 
 
 
+
+gas_1_1 = gas_in.Gas_subsystem(0.05)
+
+print(gas_1_1.gas_pressure_class)
+gas_1_1_cons = gas_1_1.gas_consumption_norm(source_data.Q_boilers, 0.926)
+
+print("расход газа нм3/ч нормальный ", gas_1_1_cons)
+gas_1_1_cons_work = gas_1_1.gas_consumption_work(gas_1_1_cons)
+print("расход газа м3/ч рабочий", gas_1_1_cons_work)
+print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
+print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
+
+length = 7.
+print("Dn_collector ", round(gas_1_1.gas_collector_dn(gas_1_1_cons_work, length), 5), "при длине в м. - ", length)
