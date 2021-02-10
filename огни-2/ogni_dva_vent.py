@@ -3,6 +3,11 @@ import gas_in
 
 if __name__ == "__main__":    
 
+    vent_info = open("vent_info.txt", "a")
+    vent_info.write("asdasd\n")
+    vent_info.write("asdasd\n")
+    vent_info.write("asdasd")
+
     # #Вентиляция Котельной
 
     S_boiler_room = source_data.wall_0 * source_data.wall_1 
@@ -60,7 +65,7 @@ if __name__ == "__main__":
 
     #дефлекторы для котельной
 
-    v_out = 1
+    v_out = 1.5
     S_defl = Gv_3 / 3600 / v_out
     dn_defl_1 = round((4 * (S_defl / source_data.n_defl) / 3.14) ** 0.5, 3)
     print("сечение расчетное, м2 - ", S_defl)

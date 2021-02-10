@@ -60,11 +60,11 @@ def dp(Gmax, kvs):
 
 if __name__ == '__main__':
     
-    G = pipeG(0.105, 95, 70)
+    G = pipeG(3.217, 90, 70)
     print("G - m3/h - ", G)
 
     Dn = pipeDn(G)
     print("Dn - ", Dn)
 
-    V = pipev(G, Dn)
+    V = pipev(G, 200)
     print("V m/s - ", V)

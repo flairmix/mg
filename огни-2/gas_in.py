@@ -122,7 +122,7 @@ def gas_consution(list:source_data.Q_boilers, efficiency_boiler=0.92, heating_va
     Q_boiler - Gcal/h - boiler power 
     """
     #расчет расхода природного газа  
-    G_gas = [i for i in range (0, len(source_data.Q_boilers))]
+    G_gas = []
     for boiler in source_data.Q_boilers:
         G_gas.append(round(10 **6 * boiler / heating_value / efficiency_boiler, 3)) 
         # print("расход газа котел,", boiler,"  м3/ч - ", G_gas[-1])
