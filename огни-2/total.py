@@ -67,5 +67,5 @@ print("расход газа м3/ч рабочий", gas_1_1_cons_work)
 print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
 print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
 
-length = 7.
+length = 8.
 print("Dn_collector ", round(gas_1_1.gas_collector_dn(gas_1_1_cons_work, length), 5), "при длине в м. - ", length)

@@ -63,7 +63,7 @@ if __name__ == '__main__':
     G = pipeG(3.217, 90, 70)
     print("G - m3/h - ", G)
 
-    Dn = pipeDn(G)
+    Dn = pipeDn(2.15)
     print("Dn - ", Dn)
 
     V = pipev(G, 200)
