@@ -1,7 +1,7 @@
 from enum import Enum, auto
 from math import sqrt
 
-import source_data_21 as source_data
+import source_data
 import calc
 
 PRESSURE_ATMOSPHERE_BAR = 1.01325
@@ -33,9 +33,9 @@ class GAS_PRESSURE_CLASS(Enum):
 
 class Gas_system():
     def __init__(self):
-        self.POWER_sum = source_data.POWER_sum       
+        self.POWER_sum = source_data.POWER_sum_23       
 
-    def gas_consumption_norm(self, list:source_data.Q_boilers, efficiency_boiler=source_data.efficiency_boiler, heating_value=8000):
+    def gas_consumption_norm(self, list:source_data.Q_boilers, efficiency_boiler=0.92, heating_value=8000):
         """
         return gas consumption for list of boilers, m3/h
         Q_boiler - Gcal/h - boiler power 
@@ -52,7 +52,7 @@ class Gas_system():
         return(G_gas_sum)
 
 
-    def gas_consumption_norm_one(self, Q_boiler, efficiency_boiler=0.926, heating_value=8000):
+    def gas_consumption_norm_one(self, Q_boiler, efficiency_boiler=0.92, heating_value=8000):
         """
         return gas consumption for one boiler 
         Q_boiler - Gcal/h - boiler power 
@@ -116,7 +116,7 @@ class Gas_subsystem(Gas_system):
         return Dn
 
 
-def gas_consumption(list:source_data.Q_boilers, efficiency_boiler=0.92, heating_value=8000):
+def gas_consution(list:source_data.Q_boilers, efficiency_boiler=0.92, heating_value=8000):
     """
     return gas consumption for list of boilers, m3/h
     Q_boiler - Gcal/h - boiler power 
@@ -133,13 +133,12 @@ def gas_consumption(list:source_data.Q_boilers, efficiency_boiler=0.92, heating_
     return(G_gas_sum)
 
 
-def gas_consumption_one(Q_boiler, efficiency_boiler=0.926, heating_value=8000):
+def gas_consution_one(Q_boiler, efficiency_boiler=0.92, heating_value=8000):
     """
     return gas consumption for one boiler 
     Q_boiler - Gcal/h - boiler power 
     """
     return round(10 **6 * Q_boiler / heating_value / efficiency_boiler, 3)
-
 
 
 
@@ -153,29 +152,12 @@ if __name__ == '__main__':
     print("расход газа м3/ч нормальный ", gas_1_1_cons)
     gas_1_1_cons_work = gas_1_1.gas_consumption_work(gas_1_1_cons)
     print("расход газа м3/ч рабочий", gas_1_1_cons_work)
-    print("ввод газа - dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
+    print("dn  ", gas_1_1.gas_dn_pipe(gas_1_1_cons))
     print("скорость ", gas_1_1.gas_velocity(gas_1_1_cons, gas_1_1.gas_dn_pipe(gas_1_1_cons)))
 
     length = 7.4
     print("Dn_collector ", round(gas_1_1.gas_collector_dn(gas_1_1_cons_work, length), 5), "при длине в м. - ", length)
-    
-    #опуск котел 850
-    G_1300_1 = gas_1_1.gas_consumption_norm_one(source_data.Q_boilers[0])
-    G_1300_2 = gas_1_1.gas_consumption_norm_one(source_data.Q_boilers[1])
-    G_850_0 = gas_1_1.gas_consumption_norm_one(source_data.Q_boilers[2])
-    
-    print("котел 850 - расход газа м3/ч нормальный ", G_850_0)
-    print("опуск газа - dn  ", gas_1_1.gas_dn_pipe(G_850_0))
-    print("скорость ", gas_1_1.gas_velocity(G_850_0, gas_1_1.gas_dn_pipe(G_850_0)))
-    print("_______________________________________________________________________")
-    print("котел 1300 - расход газа м3/ч нормальный ", G_1300_1)
-    print("опуск газа - dn  ", gas_1_1.gas_dn_pipe(G_1300_1))
-    print("скорость ", gas_1_1.gas_velocity(G_1300_1, gas_1_1.gas_dn_pipe(G_1300_1)))
-    print("_______________________________________________________________________")
-    print("котел 1300 - расход газа м3/ч нормальный ", G_1300_2)
-    print("опуск газа - dn  ", gas_1_1.gas_dn_pipe(G_1300_2))
-    print("скорость ", gas_1_1.gas_velocity(G_1300_2, gas_1_1.gas_dn_pipe(G_1300_2)))
-    print("_______________________________________________________________________")
+
 
 
 

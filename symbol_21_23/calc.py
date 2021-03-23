@@ -1,5 +1,25 @@
 
+from enum import Enum
+
+
 pi = 3.14159265359
+
+
+# def Power_convert(power, unit_in, unit_out):
+#     """ 
+#     unit_in  - Gcal_h | kW
+#     unit_out - Gcal_h | kW
+#     """
+
+#     if unit_in == "Gcal_h" and unit_out == "kW":
+#         return power * 1163
+#     elif unit_in == "kW" and unit_out == "Gcal_h":
+#         return power / 1163
+#     else:
+#         raise ValueError("Wrong units for converting")
+   
+   
+            
 
 
 def GCalh_to_kW(power_Gcal_h):
@@ -17,8 +37,7 @@ def pipeG(Q, t1=130, t2=70):
     t1 - high temperature, 
     t2 - low temperature
     """
-    G = 1000* Q / (t1 - t2)
-    return G
+    return (1000 * Q / (t1 - t2))
 
 
 def pipeDn(G, v = 1):
@@ -58,10 +77,14 @@ def dp(Gmax, kvs):
     return (Gmax / kvs)
     
 
+
+
+
+
 if __name__ == '__main__':
     
     # ait 21
-    G1 = pipeG((1184 / 1163), 90, 70)
+    G1 = pipeG((1296 / 1163), 90, 70)
     Dn1 = pipeDn(G1, 1.3)
     print("G_1184 - m3/h - ", G1, " , Dn1 - ", Dn1)
 
@@ -69,7 +92,7 @@ if __name__ == '__main__':
     Dn2 = pipeDn(G2, 1)
     print("G_849 - m3/h - ", G2, " , Dn2 - ", Dn2)
 
-    G12 = pipeG(3.050, 90, 70)
+    G12 = pipeG(2.175, 90, 70)
     Dn12 = pipeDn(G12, 1.3)
     v12 = pipev(G12, Dn12)
     print("G12 - m3/h - ", G12, " , Dn12 - ", Dn12)
@@ -81,3 +104,10 @@ if __name__ == '__main__':
 
     # V = pipev(155, 200)
     # print("V m/s - ", V)
+
+    # print(Power_convert(1.000, "Gcal_h", "kW"))
+    # print(Power_convert(1000, "kW", "Gcal_h"))
+    # print(Power_convert(1.000, "kW", "kW"))
+
+
+
